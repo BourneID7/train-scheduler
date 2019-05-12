@@ -42,6 +42,31 @@ var firebaseConfig = {
           console.log(snapshot.val().firstTrain);
           console.log(snapshot.val().frequency);
 
+        // function to determine the next train arrival
+      
+        // function to determine how many minutes away each train is
+
+        // function to add row to train schedule chart on submit
+
+        function newRow() {
+            var row = $('<tr>');
+            var tdName = $('<td id="trainName">').text(snapshot.val().trainName);
+            var tdDest = $('<td id="destination">').text(snapshot.val().destination);
+            var tdFreq = $('<td id="frequency">').text(snapshot.val().frequency);
+            var tdNext = $('<td id="nextTrain">').text("");
+            var tdMinutes = $('<td id="minutes">').text("");
+            $("#currentTrains").append(row);
+            row.append(tdName);
+            row.append(tdDest);
+            row.append(tdFreq);
+            row.append(tdNext);
+            row.append(tdMinutes);
+        } 
+        newRow();
+
+      // sort rows by next train to arrive
+
+
       })
 
   })
