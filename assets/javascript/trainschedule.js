@@ -42,9 +42,33 @@ var firebaseConfig = {
           console.log(snapshot.val().firstTrain);
           console.log(snapshot.val().frequency);
 
-        // function to determine the next train arrival
-      
-        // function to determine how many minutes away each train is
+        // time variable calculations
+        var today = new Date();
+        var currentTime = today.getHours() + ":" + today.getMinutes();
+        console.log("current time is " + currentTime);
+
+        var currentTimeMinutes = (today.getHours() * 60) + (today.getMinutes());
+        console.log("current time in minutes is " + currentTimeMinutes);
+
+        var startTimeMinutes = moment(firstTrain).get("minute");
+        console.log("first train start time in minutes is " + startTimeMinutes);
+
+        var numberTrains = Math.floor((currentTimeMinutes - startTimeMinutes) / frequency);
+        console.log("number of trains run until now is " + numberTrains);
+
+        var remainder = (currentTimeMinutes - startTimeMinutes) - (numberTrains * frequency);
+        console.log("remainder of minutes since last train is " + remainder);
+
+        var nextTrainDueMinutes = frequency - remainder;
+        console.log("the next train is due in " + nextTrainDueMinutes + " minutes");
+
+        var nextArrivalTime = currentTimeMinutes + nextTrainDueMinutes;
+        console.log("the next train arrives at " + nextArrivalTime);
+
+        var timeFormat = "HH:MM:A";
+        var convertedArrivalTime = moment(nextArrivalTime, timeFormat);
+        console.log(convertedArrivalTime);
+
 
         // function to add row to train schedule chart on submit
 
