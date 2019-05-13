@@ -50,7 +50,7 @@ var firebaseConfig = {
         var currentTimeMinutes = (today.getHours() * 60) + (today.getMinutes());
         console.log("current time in minutes is " + currentTimeMinutes);
 
-        var startTimeMinutes = moment(firstTrain).get("minute");
+        var startTimeMinutes = moment.duration(firstTrain).asMinutes();
         console.log("first train start time in minutes is " + startTimeMinutes);
 
         var numberTrains = Math.floor((currentTimeMinutes - startTimeMinutes) / frequency);
@@ -65,8 +65,7 @@ var firebaseConfig = {
         var nextArrivalTime = currentTimeMinutes + nextTrainDueMinutes;
         console.log("the next train arrives at " + nextArrivalTime);
 
-        var timeFormat = "HH:MM:A";
-        var convertedArrivalTime = moment(nextArrivalTime, timeFormat);
+        var convertedArrivalTime = moment.utc().startOf('day').add(nextArrivalTime, 'minutes').format('hh:mm A')
         console.log(convertedArrivalTime);
 
 
@@ -77,8 +76,8 @@ var firebaseConfig = {
             var tdName = $('<td id="trainName">').text(snapshot.val().trainName);
             var tdDest = $('<td id="destination">').text(snapshot.val().destination);
             var tdFreq = $('<td id="frequency">').text(snapshot.val().frequency);
-            var tdNext = $('<td id="nextTrain">').text("");
-            var tdMinutes = $('<td id="minutes">').text("");
+            var tdNext = $('<td id="nextTrain">').text(convertedArrivalTime);
+            var tdMinutes = $('<td id="minutes">').text(nextTrainDueMinutes);
             $("#currentTrains").append(row);
             row.append(tdName);
             row.append(tdDest);
