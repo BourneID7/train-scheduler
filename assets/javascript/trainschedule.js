@@ -18,6 +18,7 @@ var firebaseConfig = {
   var frequency;
   var nextArrival;
   var minutesAway;
+  
 
   // on click submit button add form values to firebase
 
@@ -39,36 +40,42 @@ var firebaseConfig = {
       database.ref().on("child_added", function(snapshot) {
           console.log(snapshot.val().trainName);
           console.log(snapshot.val().destination);
-          console.log(snapshot.val().firstTrain);
-          console.log(snapshot.val().frequency);
+          console.log("first train start time is " + snapshot.val().firstTrain);
+          console.log("train arrives every " + snapshot.val().frequency + " minutes");
 
         // time variable calculations
+
         var today = new Date();
         var currentTime = today.getHours() + ":" + today.getMinutes();
         console.log("current time is " + currentTime);
 
+        // convert current time to total minutes from midnight for easier math
         var currentTimeMinutes = (today.getHours() * 60) + (today.getMinutes());
         console.log("current time in minutes is " + currentTimeMinutes);
 
         var startTimeMinutes = moment.duration(firstTrain).asMinutes();
         console.log("first train start time in minutes is " + startTimeMinutes);
 
-        var numberTrains = Math.floor((currentTimeMinutes - startTimeMinutes) / frequency);
+        var numberTrains = Math.floor((currentTimeMinutes - startTimeMinutes) / (snapshot.val().frequency));
         console.log("number of trains run until now is " + numberTrains);
 
-        var remainder = (currentTimeMinutes - startTimeMinutes) - (numberTrains * frequency);
+        var remainder = (currentTimeMinutes - startTimeMinutes) - (numberTrains * (snapshot.val().frequency));
         console.log("remainder of minutes since last train is " + remainder);
 
-        var nextTrainDueMinutes = frequency - remainder;
-        console.log("the next train is due in " + nextTrainDueMinutes + " minutes");
+        var lastTrain = startTimeMinutes + (numberTrains * snapshot.val().frequency);
+        console.log("last train arrived at " + lastTrain + " minutes into the day")
 
-        var nextArrivalTime = currentTimeMinutes + nextTrainDueMinutes;
-        console.log("the next train arrives at " + nextArrivalTime);
+        var nextArrival = lastTrain + (snapshot.val().frequency);
+        console.log("the next train arrives at " + nextArrival + " minutes into the day");
 
-        var convertedArrivalTime = moment.utc().startOf('day').add(nextArrivalTime, 'minutes').format('hh:mm A')
+        var convertedArrivalTime = moment().startOf('day').add(nextArrival, 'minutes').format('hh:mm A');
         console.log(convertedArrivalTime);
 
+        var minutesAway = nextArrival - currentTimeMinutes;
+        console.log("the next train is due in " + minutesAway + " minutes");
 
+
+  
         // function to add row to train schedule chart on submit
 
         function newRow() {
@@ -77,7 +84,7 @@ var firebaseConfig = {
             var tdDest = $('<td id="destination">').text(snapshot.val().destination);
             var tdFreq = $('<td id="frequency">').text(snapshot.val().frequency);
             var tdNext = $('<td id="nextTrain">').text(convertedArrivalTime);
-            var tdMinutes = $('<td id="minutes">').text(nextTrainDueMinutes);
+            var tdMinutes = $('<td id="minutes">').text(minutesAway);
             $("#currentTrains").append(row);
             row.append(tdName);
             row.append(tdDest);
