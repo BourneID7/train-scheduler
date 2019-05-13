@@ -62,11 +62,8 @@ var firebaseConfig = {
         var remainder = (currentTimeMinutes - startTimeMinutes) - (numberTrains * (snapshot.val().frequency));
         console.log("remainder of minutes since last train is " + remainder);
 
-        var lastTrain = startTimeMinutes + (numberTrains * snapshot.val().frequency);
-        console.log("last train arrived at " + lastTrain + " minutes into the day")
-
-        var nextArrival = lastTrain + (snapshot.val().frequency);
-        console.log("the next train arrives at " + nextArrival + " minutes into the day");
+        var nextArrival = startTimeMinutes + ((numberTrains + 1) * snapshot.val().frequency);
+        console.log("last train arrived at " + nextArrival + " minutes into the day")
 
         var convertedArrivalTime = moment().startOf('day').add(nextArrival, 'minutes').format('hh:mm A');
         console.log(convertedArrivalTime);
