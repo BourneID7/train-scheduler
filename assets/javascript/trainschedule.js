@@ -90,6 +90,9 @@ var firebaseConfig = {
 
       // sort rows by next train to arrive
 
+      // clear form
+      $("#addTrain")[0].reset();
+
 
       })
 
