@@ -1,0 +1,33 @@
+#header {
+    background: url("../images/train.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+h1 {
+    text-align: center;
+    color: #fff;
+    font-family: 'Anton', sans-serif;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 1rem;
+    padding-top: 100px;
+}
+h4 {
+    text-align: center;
+    color: #fb4904;
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    text-transform: uppercase;
+    padding-top: 30px;
+}
+.table .thead-dark th, .btn-dark {
+    background: #203d7d;
+}
+.bottomBorder {
+    border-bottom: #203d7d solid 10px;
+    width: 100%;
+}
+.center {
+    text-align: center; 
+}

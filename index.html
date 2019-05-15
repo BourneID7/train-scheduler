@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
@@ -13,7 +14,7 @@
     <title>Train Scheduler</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div id="header" class="container-fluid">
         <header class="container">
             <h1>Find Your Train</h1>
         </header>
@@ -30,7 +31,7 @@
             </thead>
             <tbody id="currentTrains"></tbody>
         </table>
-        <h4>Add a Train</h4>
+        <h4 class="bottomBorder">Add a Train</h4>
         <form id="addTrain">
             <div class="form-group">
                 <label for="trainName">Train Name</label>
@@ -48,7 +49,9 @@
                 <label for="frequency">Frequency (minutes)</label>
                 <input type="number" class="form-control" id="frequency">
             </div>
-            <button type="submit" id="submit" class="btn btn-dark">Submit</button>
+            <div class="center">
+                <button type="submit" id="submit" class="btn btn-dark">Submit</button>
+            </div>
         </form>
     </div>
     <!-- load bootstrap js-->
