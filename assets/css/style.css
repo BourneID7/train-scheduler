@@ -2,8 +2,8 @@
     background: url("../images/train.jpg") no-repeat;
     background-size: cover;
     background-position: center;
-
 }
+
 h1 {
     text-align: center;
     color: #fff;
@@ -31,3 +31,23 @@ h4 {
 .center {
     text-align: center; 
 }
+
+@media only screen and (max-width : 640px) {
+    #header {
+        background-size: 100%;
+    }
+    h1 {
+        font-size: 3rem;
+        letter-spacing: 0rem;
+        padding-top: 60px;
+    }
+    h4 {
+        font-size: 1.5rem;
+        padding-top: 20px;
+    }
+    table th, td {
+        padding: 8px;
+        font-size: .95rem;
+    }
+}
+
