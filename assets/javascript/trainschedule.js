@@ -58,6 +58,9 @@ $("#submit").on("click", function(event){
     frequency = childSnapshot.val().frequency;
     firstTrain = childSnapshot.val().firstTrain;
 
+    // sort rows by destination
+    // database.ref().orderByValue(destination);
+
     // console log all variables
     console.log(trainName);
     console.log(destination);
@@ -65,7 +68,6 @@ $("#submit").on("click", function(event){
     console.log("train arrives every " + frequency + " minutes");
 
     // time variable calculations
-
     var today = new Date();
     var currentTime = today.getHours() + ":" + today.getMinutes();
     console.log("current time is " + currentTime);
@@ -89,20 +91,52 @@ $("#submit").on("click", function(event){
     var minutesAway = nextArrival - currentTimeMinutes;
     console.log("the next train is due in " + minutesAway + " minutes");
 
-    // function to add row to train schedule chart on submit
-    // Create the new row
-  var newRow = $("<tr>").append(
-    $("<td>").text(trainName),
-    $("<td>").text(destination),
-    $("<td>").text(frequency),
-    $("<td>").text(convertedArrivalTime),
-    $("<td>").text(minutesAway)
-  );
+    // add row to train schedule chart on submit
+    var newRow = $("<tr>").append(
+      $("<td>").text(trainName),
+      $("<td>").text(destination),
+      $("<td>").text(frequency),
+      $("<td>").text(convertedArrivalTime),
+      $("<td>").text(minutesAway)
+    );
 
+    // sort table by destination
+    function sortTable() {
+      var rows, switching, i, x, y, shouldSwitch;
+      switching = true;
+      // Make a loop that will continue until no switching has been done
+
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = document.getElementById("currentTrains").getElementsByTagName("tr");
+
+        // Loop through all table body rows 
+        for (i = 0; i < (rows.length); i++) {
+          // Start by saying there should be no switching
+          shouldSwitch = false;
+
+          // Compare current row and the next
+          x = rows[i].getElementsByTagName("td")[1];
+          y = rows[i + 1].getElementsByTagName("td")[1];
+
+          // Check if the two rows should switch place
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop
+            shouldSwitch = true;
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            break;
+          }
+        }
+        switching = false;
+        
+      }
+    }
+  $("#colDestination").one("click", sortTable);
+      
   // Append the new row to the table
   $("#currentTrains").append(newRow);
 
-  // sort rows by next train to arrive
 
-  })
+})
 
