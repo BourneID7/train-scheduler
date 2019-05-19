@@ -104,39 +104,38 @@ $("#submit").on("click", function(event){
     function sortTable() {
       var rows, switching, i, x, y, shouldSwitch;
       switching = true;
-      // Make a loop that will continue until no switching has been done
 
+      // Make a loop that will continue until no switching has been done
       while (switching) {
-        // Start by saying: no switching is done:
+        // Start by saying no switching is done
         switching = false;
         rows = document.getElementById("currentTrains").getElementsByTagName("tr");
 
-        // Loop through all table body rows 
+        // Loop through all table body rows
         for (i = 0; i < (rows.length); i++) {
-          // Start by saying there should be no switching
+          // Start by saying there should be no switching:
           shouldSwitch = false;
 
-          // Compare current row and the next
+          // Compare current element & element from next row
           x = rows[i].getElementsByTagName("td")[1];
           y = rows[i + 1].getElementsByTagName("td")[1];
 
-          // Check if the two rows should switch place
+          // Check if the two rows should switch place:
           if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            // If so, mark as a switch and break the loop
+            // If so, mark as a switch, make switch, and break the loop:
             shouldSwitch = true;
+            switching = true;
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             break;
           }
-        }
-        switching = false;
-        
+        switching = true;
       }
     }
-  $("#colDestination").one("click", sortTable);
+  }    
+  $("#colDestination").on("click", sortTable);
       
   // Append the new row to the table
   $("#currentTrains").append(newRow);
 
 
 })
-
