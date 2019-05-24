@@ -112,10 +112,9 @@ $("#submit").on("click", function(event){
         rows = document.getElementById("currentTrains").getElementsByTagName("tr");
 
         // Loop through all table body rows
-        for (i = 0; i < (rows.length); i++) {
+        for (i = 0; i < rows.length - 1; i++) {
           // Start by saying there should be no switching:
           shouldSwitch = false;
-
           // Compare current element & element from next row
           x = rows[i].getElementsByTagName("td")[1];
           y = rows[i + 1].getElementsByTagName("td")[1];
@@ -128,7 +127,7 @@ $("#submit").on("click", function(event){
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             break;
           }
-        switching = true;
+        switching = false;
       }
     }
   }    
