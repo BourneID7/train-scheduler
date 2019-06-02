@@ -1,2 +1,4 @@
-# train-scheduler
-firebase and moment.js app
+# Train Scheduler
+This app uses firebase to store scheduled train info and moment.js to update the next arrival times based on the current time.
+
+Users can add additional trains to the list using an html form.
